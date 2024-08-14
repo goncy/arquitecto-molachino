@@ -21,10 +21,10 @@ export async function getStaticPaths() {
 
 <Layout title={project.title}>
   <section class="grid gap-24">
-    <header class="flex justify-center flex-col items-center gap-4 text-center">
+    <header class="flex flex-col items-center gap-4 text-center">
       <a
         href="javascript:history.back()"
-        class="text-center md:text-left font-bold">← Volver</a
+        class="self-center md:self-start font-bold">← Volver</a
       >
       <Badge
         transition:name={`${project.id}-badge`}
