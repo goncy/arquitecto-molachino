@@ -1,0 +1,16 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"textarea"> {
+  label: string;
+}
+
+const { label, ...props } = Astro.props;
+---
+
+<label>
+  <span>{label}</span>
+  <textarea
+    class="p-2 border-b border-b-primary/25 focus:border-b-primary bg-transparent transition-colors w-full"
+    {...props}></textarea>
+</label>

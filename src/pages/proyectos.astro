@@ -1,0 +1,47 @@
+---
+import api from "../api";
+import ProjectCard from "../components/ProjectCard.astro";
+import Layout from "../Layout.astro";
+import type { Project } from "../types";
+
+const projects = await api.list();
+const categories = projects.reduce<Record<Project["category"], Project[]>>(
+  (acc, project) => {
+    if (!acc[project.category]) {
+      acc[project.category] = [];
+    }
+
+    acc[project.category].push(project);
+
+    return acc;
+  },
+  {}
+);
+---
+
+<Layout title="Proyectos">
+  <main class="grid gap-24">
+    <header class="grid gap-4">
+      <a href="/" class="text-center md:text-left font-bold">← Volver</a>
+      <h1 class="text-center font-extrabold text-5xl">Proyectos</h1>
+    </header>
+    <section class="grid gap-24">
+      {
+        Object.entries(categories).map(([category, projects]) => (
+          <article class="grid gap-4 md:gap-8">
+            <h2 class="capitalize text-2xl md:text-3xl font-extrabold">
+              {category}
+            </h2>
+            <div class="grid grid-cols-1 gap-4 md:gap-8 sm:grid-cols-2">
+              {projects.map((project) => (
+                <a href={`/${project.id}`}>
+                  <ProjectCard project={project} size="medium" />
+                </a>
+              ))}
+            </div>
+          </article>
+        ))
+      }
+    </section>
+  </main>
+</Layout>

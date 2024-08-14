@@ -1,0 +1,55 @@
+---
+import api from "../api";
+import Badge from "../components/Badge.astro";
+import Layout from "../Layout.astro";
+
+const { project } = Astro.props;
+
+export async function getStaticPaths() {
+  const projects = await api.list();
+
+  return projects.map((project) => ({
+    params: {
+      id: project.id,
+    },
+    props: {
+      project,
+    },
+  }));
+}
+---
+
+<Layout title={project.title}>
+  <section class="grid gap-24">
+    <header class="flex justify-center flex-col items-center gap-4 text-center">
+      <a
+        href="javascript:history.back()"
+        class="text-center md:text-left font-bold">← Volver</a
+      >
+      <Badge
+        transition:name={`${project.id}-badge`}
+        intent={project.status === "obra terminada"
+          ? "constructive"
+          : "doubtful"}>{project.status}</Badge
+      >
+      <h1
+        transition:name={`${project.id}-title`}
+        class="text-4xl md:text-5xl font-extrabold text-center max-w-3xl text-balance"
+      >
+        {project.title}
+      </h1>
+    </header>
+    <article class="grid gap-4 md:gap-12">
+      {
+        project.images.map((image, index) => (
+          <img
+            transition:name={index === 0 ? `${project.id}-image` : undefined}
+            src={image}
+            alt={project.title}
+            class="rounded-3xl aspect-video"
+          />
+        ))
+      }
+    </article>
+  </section>
+</Layout>

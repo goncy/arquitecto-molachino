@@ -1,0 +1,43 @@
+---
+import { ViewTransitions } from "astro:transitions";
+
+import "./globals.css";
+
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>
+      {
+        title
+          ? `Arquitecto Federico Molachino - ${title}`
+          : "Arquitecto Federico Molachino"
+      }
+    </title>
+    <ViewTransitions />
+  </head>
+  <body class="grid grid-rows-[60px,1fr,60px] gap-4 min-h-svh">
+    <nav class="flex items-center">
+      <a href="/" class="container max-w-screen-lg font-bold text-lg"
+        >Arq. Federico Molachino</a
+      >
+    </nav>
+    <main class="container max-w-screen-lg w-full py-12 md:py-24">
+      <slot />
+    </main>
+    <footer class="bg-black text-white text-center grid place-content-center">
+      <small class="container max-w-screen-lg font-semibold"
+        >Arq. Federico Molachino</small
+      >
+    </footer>
+  </body>
+</html>

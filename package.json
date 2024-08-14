@@ -1,0 +1,25 @@
+{
+  "name": "federico-molachino",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.2",
+    "@astrojs/tailwind": "^5.1.0",
+    "@fontsource/poppins": "^5.0.14",
+    "astro": "^4.13.3",
+    "class-variance-authority": "^0.7.0",
+    "slugify": "^1.6.6",
+    "tailwindcss": "^3.4.10",
+    "typescript": "^5.5.4"
+  },
+  "devDependencies": {
+    "sass-embedded": "^1.77.8"
+  }
+}

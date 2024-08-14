@@ -1,0 +1,62 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import type { Project } from "../types";
+
+import { cva, type VariantProps } from "class-variance-authority";
+
+import Badge from "./Badge.astro";
+
+const content = cva(["grid", "z-2"], {
+  variants: {
+    size: {
+      medium: ["gap-1.5", "p-4"],
+      xl: ["gap-1.5 md:gap-3", "p-4 md:p-8"],
+    },
+  },
+});
+
+const title = cva(["font-bold", "text-balance", "uppercase", "text-white"], {
+  variants: {
+    size: {
+      medium: ["text-xl md:text-2xl", "max-w-md"],
+      xl: ["text-xl md:text-3xl", "max-w-lg"],
+    },
+  },
+});
+
+export interface Props
+  extends HTMLAttributes<"span">,
+    VariantProps<typeof content>,
+    VariantProps<typeof title> {
+  project: Project;
+}
+
+const { project, size = "xl" } = Astro.props;
+---
+
+<article
+  class="flex items-end relative aspect-video bg-black rounded-2xl overflow-hidden"
+>
+  <img
+    transition:name={`${project.id}-image`}
+    src={project.images[0]}
+    alt={project.title}
+    class="absolute rounded-2xl project-card-image"
+  />
+  <aside class={content({ size })}>
+    <Badge
+      intent={project.status === "obra terminada" ? "constructive" : "doubtful"}
+      size="small"
+      transition:name={`${project.id}-badge`}>{project.status}</Badge
+    >
+    <h3 transition:name={`${project.id}-title`} class={title({ size })}>
+      {project.title}
+    </h3>
+  </aside>
+</article>
+
+<style>
+  .project-card-image {
+    mask-image: linear-gradient(to bottom, black 25%, rgba(0, 0, 0, 0.3) 90%);
+  }
+</style>

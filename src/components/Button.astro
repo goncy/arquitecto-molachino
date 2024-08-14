@@ -1,0 +1,38 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cva, type VariantProps } from "class-variance-authority";
+
+const button = cva(
+  ["rounded-md", "transition-colors", "border", "border-primary/50", "w-full"],
+  {
+    variants: {
+      intent: {
+        primary: [
+          "bg-primary",
+          "text-primary-foreground",
+          "hover:bg-primary/80",
+        ],
+        secondary: [
+          "bg-secondary/80",
+          "text-secondary-foreground",
+          "hover:bg-secondary",
+        ],
+      },
+      size: {
+        small: ["text-sm", "py-2", "px-8"],
+        medium: ["text-base", "py-4", "px-12"],
+      },
+    },
+  }
+);
+
+export interface Props
+  extends HTMLAttributes<"button">,
+    VariantProps<typeof button> {}
+
+const { intent = "secondary", size = "medium" } = Astro.props;
+---
+
+<button class={button({ intent, size })}>
+  <slot />
+</button>
