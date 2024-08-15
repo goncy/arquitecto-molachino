@@ -1,9 +1,5 @@
-export interface Project {
-  id: string;
-  title: string;
-  featured: boolean;
-  date: string;
-  category: string;
-  status: string;
-  images: string[];
-}
+import type { z } from "astro:content";
+
+import { projectSchema } from "./api";
+
+export type Project = z.infer<typeof projectSchema>;

@@ -1,7 +1,7 @@
 import { z } from "astro:content";
 import slugify from "slugify";
 
-const projectSchema = z.object({
+export const projectSchema = z.object({
   id: z.string(),
   title: z.string(),
   featured: z.boolean(),
